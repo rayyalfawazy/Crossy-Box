@@ -223,7 +223,8 @@ MonoBehaviour:
   roadPrefab: {fileID: 6874301000884614052, guid: c7061083f5ac2a544978a100cc41f6e6, type: 3}
   initialGrassCount: 5
   horizontalSize: 9
-  backRelativePos: -4
+  backViewDistance: -5
+  frontViewDistance: 6
 --- !u!4 &278868111
 Transform:
   m_ObjectHideFlags: 0

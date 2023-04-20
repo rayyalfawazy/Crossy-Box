@@ -222,9 +222,9 @@ MonoBehaviour:
   grassPrefab: {fileID: -8852705314907513673, guid: be89d29bddc366e4f8541a96c29d0ee6, type: 3}
   roadPrefab: {fileID: 6874301000884614052, guid: c7061083f5ac2a544978a100cc41f6e6, type: 3}
   initialGrassCount: 5
-  horizontalSize: 9
+  horizontalSize: 15
   backViewDistance: -5
-  frontViewDistance: 6
+  frontViewDistance: 15
 --- !u!4 &278868111
 Transform:
   m_ObjectHideFlags: 0
@@ -414,7 +414,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 454289501}
   m_LocalRotation: {x: 0.2111018, y: -0.16881746, z: 0.03704081, w: 0.9620628}
-  m_LocalPosition: {x: 1.3763126, y: 4.13, z: -3.7564602}
+  m_LocalPosition: {x: 1.5, y: 4.8, z: -3.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

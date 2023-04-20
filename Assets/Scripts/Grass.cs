@@ -6,7 +6,7 @@ using static UnityEditor.PlayerSettings;
 public class Grass : Terrain
 {
     [SerializeField] List<GameObject> treePrefabList;
-    [SerializeField, Range(0,1)] float treeProbability;
+    [Range(0,1)] float treeProbability = 0.3f;
 
     public void SetTreePercentage(float newProbability)
     {

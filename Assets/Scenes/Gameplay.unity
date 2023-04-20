@@ -225,6 +225,7 @@ MonoBehaviour:
   horizontalSize: 15
   backViewDistance: -5
   frontViewDistance: 15
+  treeProbability: 0.424
 --- !u!4 &278868111
 Transform:
   m_ObjectHideFlags: 0

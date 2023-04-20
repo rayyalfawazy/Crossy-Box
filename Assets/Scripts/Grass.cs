@@ -13,6 +13,7 @@ public class Grass : Terrain
         this.treeProbability = Mathf.Clamp01(newProbability);
     }
 
+    // Dari Script Terrain
     public override void Generate(int size)
     {
         base.Generate(size);
@@ -35,7 +36,7 @@ public class Grass : Terrain
             // Hapus daru Daftar Posisi Kosong
             emptyPosition.RemoveAt(randomIndex);
 
-            // 
+            // Spawn Pohon Random
             SpawnRandomTree(pos);
         }
         // Pohon Selalu Di Ujung
@@ -43,8 +44,8 @@ public class Grass : Terrain
         SpawnRandomTree(limit + 1);
     }
 
-    // Fungsi Spawn Pohon secara Random
-    void SpawnRandomTree(int pos)
+    // Method Spawn Pohon secara Random
+    void SpawnRandomTree(int xPos)
     {
         // Pilih Pohon Secara Random
         var randomIndex = Random.Range(0, treePrefabList.Count);
@@ -52,6 +53,6 @@ public class Grass : Terrain
 
         // Set Pohon Ke Posisi Terpilih
         var tree = Instantiate(prefab, transform);
-        tree.transform.localPosition = new Vector3(pos, 0, 0);
+        tree.transform.localPosition = new Vector3(xPos, 0, 0);
     }
 }

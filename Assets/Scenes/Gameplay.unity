@@ -223,6 +223,7 @@ MonoBehaviour:
   roadPrefab: {fileID: 6874301000884614052, guid: c7061083f5ac2a544978a100cc41f6e6, type: 3}
   initialGrassCount: 5
   horizontalSize: 9
+  backRelativePos: -4
 --- !u!4 &278868111
 Transform:
   m_ObjectHideFlags: 0
@@ -388,7 +389,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 2.5
+  orthographic size: 3.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -411,8 +412,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 454289501}
-  m_LocalRotation: {x: 0.17144148, y: -0.13694845, z: 0.024072453, w: 0.9753325}
-  m_LocalPosition: {x: 0.5088148, y: 1.0408646, z: -1.4033468}
+  m_LocalRotation: {x: 0.2111018, y: -0.16881746, z: 0.03704081, w: 0.9620628}
+  m_LocalPosition: {x: 1.3763126, y: 4.13, z: -3.7564602}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -444,7 +445,7 @@ Transform:
   m_GameObject: {fileID: 670892546}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 11170481}

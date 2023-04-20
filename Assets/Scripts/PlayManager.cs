@@ -8,13 +8,15 @@ public class PlayManager : MonoBehaviour
     [SerializeField] Road roadPrefab;
     [SerializeField] int initialGrassCount = 5;
     [SerializeField] int horizontalSize;
+    [SerializeField] int backRelativePos = -5; // Spawn Line ke Belakang
 
     private void Start()
     {
-        for (int i = 0; i < initialGrassCount; ++i) 
+        for (int zPos = backRelativePos; zPos < initialGrassCount; ++zPos) 
         {
             var grass = Instantiate(grassPrefab);
-            grass.transform.localPosition = new Vector3(0,0,i);
+            grass.transform.localPosition = new Vector3(0,0,zPos);
+            grass.SetTreePercentage(zPos < -1 ? 1 : 0); //Jika zPos dibawah 0 maka spawn semua pohon.
             grass.Generate(horizontalSize);
         }
     }

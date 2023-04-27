@@ -13,7 +13,7 @@ public class PlayManager : MonoBehaviour
     [SerializeField] int frontViewDistance = 7; // Spawn Line ke Depan (Relative terhadap player)
 
     List<Terrain> terrainList; //Terrain List Initialize
-    Dictionary<int, Terrain> activeTerrain = new Dictionary<int, Terrain>(20); // Untuk Menentukan isi zPos dengan terrain
+    Dictionary<int, Terrain> activeTerrain = new Dictionary<int, Terrain>(20); // Untuk Menentukan isi zPos dengan terrain (Dictionary)
 
     [SerializeField, Range(0, 1)] float treeProbability;
 
@@ -27,7 +27,7 @@ public class PlayManager : MonoBehaviour
         };
 
         // Membuat Initial Grass
-        for (int zPos = backViewDistance; zPos < initialGrassCount; ++zPos) 
+        for (int zPos = backViewDistance; zPos < initialGrassCount; zPos++) 
         {
             var grass = Instantiate(grassPrefab);
             grass.transform.localPosition = new Vector3(0,0,zPos);
@@ -41,23 +41,58 @@ public class PlayManager : MonoBehaviour
         }
 
         // Membuat Line Kedepan Player Randomly
-        for (int zPos = initialGrassCount; zPos < frontViewDistance; ++zPos)
+        for (int zPos = initialGrassCount; zPos < frontViewDistance; zPos++)
         {
-            var randomIndex = Random.Range(0, terrainList.Count); //Generate Random Index hingga Jumlah Terrain
-            var terrain = Instantiate(terrainList[randomIndex]); //Generate Random Terrain sesuai index yang ditentukan
-            terrain.transform.localPosition = new Vector3(0, 0, zPos);
-            terrain.Generate(horizontalSize);
+            var terrain = SpawnRandomTerrain(zPos);
+            //var randomIndex = Random.Range(0, terrainList.Count); //Generate Random Index hingga Jumlah Terrain
+            //var terrain = Instantiate(terrainList[randomIndex]); //Generate Random Terrain sesuai index yang ditentukan
 
+            terrain.Generate(horizontalSize);
             activeTerrain[zPos] = terrain;
         }
+        SpawnRandomTerrain(0);
     }
 
-    Terrain SpawnTerain(int zPos)
+    private Terrain SpawnRandomTerrain(int zPos)
     {
-        for(int i = zPos + frontViewDistance; i < 10; ++i) 
+        Terrain terrainCheck = null;
+        Terrain terrain = null;
+        int randomIndex;
+
+        for(int z = -1; z >= -3; z--) 
         {
-            
+            var checkPos = zPos + z;
+            if (terrainCheck == null)
+            {
+                terrainCheck = activeTerrain[checkPos];
+                continue;
+            }
+            else if (terrainCheck.GetType() != activeTerrain[checkPos].GetType())
+            {
+                randomIndex = Random.Range(0, terrainList.Count);
+                terrain = Instantiate(terrainList[randomIndex]);
+                terrain.transform.position = new Vector3(0, 0, zPos);
+                return terrain;
+            }
+            else
+            {
+                continue;
+            }
         }
-        return null;
+        
+        var candidateTerrain = new List<Terrain>(terrainList);
+        for (int i = 0; i < candidateTerrain.Count; ++i)
+        {
+            if (terrainCheck.GetType() == candidateTerrain[i].GetType())
+            {
+                candidateTerrain.Remove(candidateTerrain[i]);
+                break;
+            }
+        }
+
+        randomIndex = Random.Range(0,candidateTerrain.Count);
+        terrain = Instantiate(candidateTerrain[randomIndex]);
+        terrain.transform.position = new Vector3(0,0, zPos);
+        return terrain;
     }
 }

@@ -18,8 +18,6 @@ public class Terrain : MonoBehaviour
             size -= 1;
         }
 
-
-
         int moveLimit = Mathf.FloorToInt((float)size / 2);
         for (int i = -moveLimit; i <= moveLimit; i++)
         {

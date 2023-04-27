@@ -222,8 +222,8 @@ MonoBehaviour:
   grassPrefab: {fileID: -8852705314907513673, guid: be89d29bddc366e4f8541a96c29d0ee6, type: 3}
   roadPrefab: {fileID: 6874301000884614052, guid: c7061083f5ac2a544978a100cc41f6e6, type: 3}
   initialGrassCount: 5
-  horizontalSize: 15
-  backViewDistance: -5
+  horizontalSize: 9
+  backViewDistance: -4
   frontViewDistance: 15
   treeProbability: 0.424
 --- !u!4 &278868111

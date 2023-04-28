@@ -2,11 +2,14 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class CharacterMovement : MonoBehaviour
+public class Player : MonoBehaviour
 {
     [SerializeField,Range(0,1)] float durasi;
     [SerializeField,Range(0, 1)] float jumpHeight;
+
+    public UnityEvent<Vector3> OnJumpEnd;
 
     void Update()
     {
@@ -41,11 +44,15 @@ public class CharacterMovement : MonoBehaviour
         Move(direction);
 
     }
+
     public void Move(Vector3 direction)
     {
-        transform.DOMoveZ(transform.position.z + direction.z, durasi);
-        transform.DOMoveX(transform.position.x + direction.x, durasi);
-        transform.DOJump(transform.position + direction, jumpHeight, 1, durasi);
+        transform.DOJump(transform.position + direction, jumpHeight, 1, durasi).onComplete = BroadcastPositionOnJumpEnd;
         transform.forward = direction;
+    }
+
+    private void BroadcastPositionOnJumpEnd()
+    {
+        OnJumpEnd.Invoke(transform.position);
     }
 }

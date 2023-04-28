@@ -4,53 +4,48 @@ using UnityEngine;
 
 public class PlayManager : MonoBehaviour
 {
-    [SerializeField] Grass grassPrefab;
-    [SerializeField] Road roadPrefab;
+    //[SerializeField] Grass grassPrefab;
+    //[SerializeField] Road roadPrefab;
+    [SerializeField] Player player;
+
+    [SerializeField] List<Terrain> terrainList; //Terrain List Initialize (Elemen 0 harus Grass-chan)
 
     [SerializeField] int initialGrassCount = 5;
     [SerializeField] int horizontalSize;
-    [SerializeField] int backViewDistance = -5; // Spawn Line ke Belakang
-    [SerializeField] int frontViewDistance = 7; // Spawn Line ke Depan (Relative terhadap player)
-
-    List<Terrain> terrainList; //Terrain List Initialize
-    Dictionary<int, Terrain> activeTerrain = new Dictionary<int, Terrain>(20); // Untuk Menentukan isi zPos dengan terrain (Dictionary)
-
+    int backViewDistance = -4; // Spawn Line ke Belakang
+    int frontViewDistance = 15; // Spawn Line ke Depan (Relative terhadap player)
     [SerializeField, Range(0, 1)] float treeProbability;
+
+    Dictionary<int, Terrain> activeTerrain = new Dictionary<int, Terrain>(20); // Untuk Menentukan isi zPos dengan terrain (Dictionary)
+    int travelDistance;  
 
     private void Start()
     {
-        //Terrain List
-        terrainList = new List<Terrain>() 
-        {
-            grassPrefab, 
-            roadPrefab
-        };
-
         // Membuat Initial Grass
         for (int zPos = backViewDistance; zPos < initialGrassCount; zPos++) 
         {
-            var grass = Instantiate(grassPrefab);
-            grass.transform.localPosition = new Vector3(0,0,zPos);
-            grass.SetTreePercentage(zPos < -1 ? 1 : 0); //Jika zPos dibawah -1 maka spawn semua pohon.
             /*
                 Pada method ini (Start), terdapat initial grass cound yang menjadi awalan mulai spawn palyer di rumput
                 sehingga pohon yang digenerate pada initial grass count adalah 0 atu tidak terdapat pohon.
              */
-            grass.Generate(horizontalSize);
-            activeTerrain[zPos] = grass;
+
+            var terrain = Instantiate(terrainList[0]);
+            terrain.transform.localPosition = new Vector3(0,0,zPos);
+
+            //Periksa apakah terrain adalah Grass-chan
+            if (terrain is Grass grass)
+            {
+                grass.SetTreePercentage(zPos < -1 ? 1 : 0);//Jika zPos dibawah -1 maka spawn semua pohon.
+            }
+            terrain.Generate(horizontalSize);
+            activeTerrain[zPos] = terrain;
         }
 
         // Membuat Line Kedepan Player Randomly
         for (int zPos = initialGrassCount; zPos < frontViewDistance; zPos++)
         {
-            var terrain = SpawnRandomTerrain(zPos);
-            //var randomIndex = Random.Range(0, terrainList.Count); //Generate Random Index hingga Jumlah Terrain
-            //var terrain = Instantiate(terrainList[randomIndex]); //Generate Random Terrain sesuai index yang ditentukan
-
-            terrain.Generate(horizontalSize);
-            activeTerrain[zPos] = terrain;
+            SpawnRandomTerrain(zPos);
         }
-        SpawnRandomTerrain(0);
     }
 
     private Terrain SpawnRandomTerrain(int zPos)
@@ -72,6 +67,8 @@ public class PlayManager : MonoBehaviour
                 randomIndex = Random.Range(0, terrainList.Count);
                 terrain = Instantiate(terrainList[randomIndex]);
                 terrain.transform.position = new Vector3(0, 0, zPos);
+                terrain.Generate(horizontalSize);
+                activeTerrain[zPos] = terrain;
                 return terrain;
             }
             else
@@ -93,6 +90,32 @@ public class PlayManager : MonoBehaviour
         randomIndex = Random.Range(0,candidateTerrain.Count);
         terrain = Instantiate(candidateTerrain[randomIndex]);
         terrain.transform.position = new Vector3(0,0, zPos);
+        terrain.Generate(horizontalSize);
+        activeTerrain[zPos] = terrain;
         return terrain;
+    }
+
+    public void DestroyBehind()
+    {
+        var destroyPos = travelDistance - 1 + backViewDistance;
+        Destroy(activeTerrain[destroyPos].gameObject);
+        activeTerrain.Remove(destroyPos);
+    }
+
+    public void UpdateTravelDistance(Vector3 targetPosition)
+    {
+        if (targetPosition.z > travelDistance)
+        {
+            travelDistance = Mathf.CeilToInt(targetPosition.z);
+            UpdateTerrain();
+        }
+    }
+
+    public void UpdateTerrain()
+    {
+        DestroyBehind();
+
+        var spawnPos = travelDistance - 1 + frontViewDistance;
+        SpawnRandomTerrain(spawnPos);
     }
 }

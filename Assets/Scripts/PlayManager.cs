@@ -121,5 +121,6 @@ public class PlayManager : MonoBehaviour
         SpawnRandomTerrain(spawnPos);
 
         // Pembatas gerak player terhadap Terain
+        OnUpdateTerrainLimit.Invoke(horizontalSize, travelDistance + backViewDistance);
     }
 }

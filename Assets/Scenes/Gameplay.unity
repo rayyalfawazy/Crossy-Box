@@ -227,7 +227,6 @@ MonoBehaviour:
   horizontalSize: 9
   backViewDistance: -4
   frontViewDistance: 15
-  treeProbability: 0.424
   travelDistance: 0
   OnUpdateTerrainLimit:
     m_PersistentCalls:

@@ -5,9 +5,12 @@ using UnityEngine;
 public class Terrain : MonoBehaviour
 {
     [SerializeField] GameObject tilePrefab;
+    protected int horizontalSize;
 
     public virtual void Generate(int size)
     {
+        horizontalSize = size;
+
         if (size == 0)
         {
             return;

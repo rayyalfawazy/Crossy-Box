@@ -52,7 +52,9 @@ public class Grass : Terrain
         var prefab = treePrefabList[randomIndex];
 
         // Set Pohon Ke Posisi Terpilih
-        var tree = Instantiate(prefab, transform);
-        tree.transform.localPosition = new Vector3(xPos, 0, 0);
+        var tree = Instantiate(prefab,
+                                new Vector3(xPos, 0, this.transform.position.z),
+                                Quaternion.identity,
+                                transform);
     }
 }

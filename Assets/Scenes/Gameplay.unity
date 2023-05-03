@@ -225,7 +225,25 @@ MonoBehaviour:
   - {fileID: 6874301000884614052, guid: c7061083f5ac2a544978a100cc41f6e6, type: 3}
   initialGrassCount: 5
   horizontalSize: 9
+  backViewDistance: -4
+  frontViewDistance: 15
   treeProbability: 0.424
+  travelDistance: 0
+  OnUpdateTerrainLimit:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1286104981}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: UpdateMoveLimit
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!4 &278868111
 Transform:
   m_ObjectHideFlags: 0
@@ -843,8 +861,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02c805b5ae45bac49ade80ffe5e375a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  durasi: 0.15
-  jumpHeight: 0.5
+  leftMoveLimit: 0
+  rightMoveLimit: 0
+  backMoveLimit: 0
   OnJumpEnd:
     m_PersistentCalls:
       m_Calls:

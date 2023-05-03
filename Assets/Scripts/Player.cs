@@ -6,8 +6,12 @@ using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField,Range(0,1)] float durasi;
-    [SerializeField,Range(0, 1)] float jumpHeight;
+    float moveDuration = 0.15f;
+    float jumpHeight = 0.5f;
+
+    [SerializeField] int leftMoveLimit;
+    [SerializeField] int rightMoveLimit;
+    [SerializeField] int backMoveLimit;
 
     public UnityEvent<Vector3> OnJumpEnd;
 
@@ -42,13 +46,25 @@ public class Player : MonoBehaviour
             return;
         }
         Move(direction);
-
     }
 
     public void Move(Vector3 direction)
     {
-        transform.DOJump(transform.position + direction, jumpHeight, 1, durasi).onComplete = BroadcastPositionOnJumpEnd;
+        var targetPosition = transform.position + direction;
+        if (targetPosition.x < leftMoveLimit || targetPosition.x > rightMoveLimit || targetPosition.z < backMoveLimit || Obstacle.Position.Contains(targetPosition)) 
+        {
+            targetPosition = transform.position;
+        }
+
+        transform.DOJump(targetPosition, jumpHeight, 1, moveDuration).onComplete = BroadcastPositionOnJumpEnd;
         transform.forward = direction;
+    }
+
+    public void UpdateMoveLimit(int horizontalSize, int backLimit)
+    {
+        leftMoveLimit = -horizontalSize/2;
+        rightMoveLimit = horizontalSize/2;
+        backMoveLimit = backLimit;
     }
 
     private void BroadcastPositionOnJumpEnd()

@@ -13,7 +13,9 @@ public class Player : MonoBehaviour
     [SerializeField] int rightMoveLimit;
     [SerializeField] int backMoveLimit;
 
+    public UnityEvent<Vector3> OnJumpStart;
     public UnityEvent<Vector3> OnJumpEnd;
+    public UnityEvent<Vector3> OnDeadSituation;
 
     bool isDead = false;
 
@@ -63,6 +65,7 @@ public class Player : MonoBehaviour
             targetPosition = transform.position;
         }
 
+        BroadcastPositionOnJumpStart();
         transform.DOJump(targetPosition, jumpHeight, 1, moveDuration).onComplete = BroadcastPositionOnJumpEnd;
         transform.forward = direction;
     }
@@ -74,18 +77,29 @@ public class Player : MonoBehaviour
         backMoveLimit = backLimit;
     }
 
-    private void BroadcastPositionOnJumpEnd()
-    {
-        OnJumpEnd.Invoke(transform.position);
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (isDead == true)
         {
             return; // Player tidak bisa bergerak, sebelum ada trigger
         }
+        BroadcastPositionOnDeadSituation();
         transform.DOScale(new Vector3(1, 0.1f,2f), 0.2f); // Player Gepeng
         isDead = true;
+    }
+
+    private void BroadcastPositionOnJumpEnd()
+    {
+        OnJumpEnd.Invoke(transform.position);
+    }
+
+    private void BroadcastPositionOnJumpStart()
+    {
+        OnJumpStart.Invoke(transform.position);
+    }
+
+    private void BroadcastPositionOnDeadSituation()
+    {
+        OnDeadSituation.Invoke(transform.localScale);
     }
 }

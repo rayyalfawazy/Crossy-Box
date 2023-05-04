@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -16,8 +17,13 @@ public class PlayManager : MonoBehaviour
     [SerializeField] int travelDistance;
 
     Dictionary<int, Terrain> activeTerrain = new Dictionary<int, Terrain>(20); // Untuk Menentukan isi zPos dengan terrain (Dictionary)
-
     public UnityEvent<int, int> OnUpdateTerrainLimit; // Untuk pembatas gerak player terhadap Terain
+
+    //public UnityEvent<int> OnScoreUpdate;
+
+    [SerializeField] TMP_Text scoreText;
+    int score;
+    int highScore;
 
     private void Start()
     {
@@ -110,7 +116,14 @@ public class PlayManager : MonoBehaviour
         {
             travelDistance = Mathf.CeilToInt(targetPosition.z);
             UpdateTerrain();
+            GetScore();
         }
+    }
+
+    public void GetScore() 
+    {
+        score = travelDistance;
+        scoreText.text = $"SCORE : {score}";
     }
 
     public void UpdateTerrain()

@@ -15,8 +15,15 @@ public class Player : MonoBehaviour
 
     public UnityEvent<Vector3> OnJumpEnd;
 
+    bool isDead = false;
+
     void Update()
     {
+        if (isDead)
+        {
+            return;
+        }
+
         if (DOTween.IsTweening(transform))
         {
             return;
@@ -70,5 +77,15 @@ public class Player : MonoBehaviour
     private void BroadcastPositionOnJumpEnd()
     {
         OnJumpEnd.Invoke(transform.position);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (isDead == true)
+        {
+            return; // Player tidak bisa bergerak, sebelum ada trigger
+        }
+        transform.DOScale(new Vector3(1, 0.1f,2f), 0.2f); // Player Gepeng
+        isDead = true;
     }
 }

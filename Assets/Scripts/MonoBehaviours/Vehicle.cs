@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class Vehicle : MonoBehaviour
 {
-    [SerializeField, Range(0,5)] float speed;
+    [Range(0,5)] public float speed;
 
-    Vector3 initialPosition;
-    float distanceLimit = float.MaxValue;
+    protected Vector3 initialPosition;
+    protected float distanceLimit = float.MaxValue;
 
     public void SetUpDistanceLimit(float distance)
     {
         this.distanceLimit = distance;
     }
 
-    private void Start()
+    protected void Start()
     {
         initialPosition = this.transform.position;
     }
 
-    void Update()
+    protected void Update()
     {
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
         if (Vector3.Distance(initialPosition,this.transform.position) > this.distanceLimit) 

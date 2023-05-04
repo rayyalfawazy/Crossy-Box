@@ -7,18 +7,18 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    static HashSet<Vector3> positionSet = new HashSet<Vector3>();
+    protected static HashSet<Vector3> positionSet = new HashSet<Vector3>();
     public static HashSet<Vector3> Position
     { 
         get => new HashSet<Vector3>(positionSet); 
     }
 
-    void OnEnable()
+    protected void OnEnable()
     {
         positionSet.Add(this.transform.position);
     }
 
-    void OnDisable()
+    protected void OnDisable()
     {
         positionSet.Remove(this.transform.position);
     }

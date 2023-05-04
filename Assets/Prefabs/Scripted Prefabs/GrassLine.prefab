@@ -47,4 +47,4 @@ MonoBehaviour:
   tilePrefab: {fileID: 758079420374903830, guid: c48a18afc932f2c41ae8ea46c5e58f97, type: 3}
   treePrefabList:
   - {fileID: 758079420374903830, guid: 381316d54ae3d944482186d2f4ed164b, type: 3}
-  treeProbability: 0
+  - {fileID: 758079420374903830, guid: 908ded55eb7efbd4faebeb90fced88dc, type: 3}

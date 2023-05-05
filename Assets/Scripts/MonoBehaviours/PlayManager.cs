@@ -22,7 +22,7 @@ public class PlayManager : MonoBehaviour
     //public UnityEvent<int> OnScoreUpdate;
 
     [SerializeField] TMP_Text scoreText;
-    int score;
+    public int score;
     int highScore;
 
     private void Start()

@@ -20,8 +20,6 @@ public class Player : MonoBehaviour
     // bool isMoving = false;
     bool isMovable = true;
 
-    //[SerializeField] Timer timerScript;
-
     void Update()
     {
         if (!isMovable)
@@ -67,14 +65,6 @@ public class Player : MonoBehaviour
 
     public void Move(Vector3 direction)
     {
-        //timerScript.timer = timerScript.initialTimer;
-        /*
-        if (timerScript.timer <= 0)
-        {
-            MakeItDie();
-            timerScript.timer = 0;
-        }
-        */
         var targetPosition = transform.position + direction;
 
         if (targetPosition.x < leftMoveLimit || 

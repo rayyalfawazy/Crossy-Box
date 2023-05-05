@@ -1,18 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] TMP_Text gameversion;
+    public void StartPlay()
     {
-        
+        SceneManager.LoadScene("Gameplay");
     }
 
-    // Update is called once per frame
-    void Update()
+    public void BackToMenu()
     {
-        
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    private void Start()
+    {
+        if (gameversion != null) 
+        {
+            gameversion.text = "Version " + Application.version;
+        }
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 }

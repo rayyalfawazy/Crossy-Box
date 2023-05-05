@@ -17,11 +17,14 @@ public class Player : MonoBehaviour
     public UnityEvent<Vector3> OnJumpEnd;
     public UnityEvent<Vector3> OnDeadSituation;
 
-    bool isDead = false;
+    // bool isMoving = false;
+    bool isMovable = true;
+
+    //[SerializeField] Timer timerScript;
 
     void Update()
     {
-        if (isDead)
+        if (!isMovable)
         {
             return;
         }
@@ -57,10 +60,27 @@ public class Player : MonoBehaviour
         Move(direction);
     }
 
+    public void SetMovable(bool value)
+    {
+        isMovable = value;
+    }
+
     public void Move(Vector3 direction)
     {
+        //timerScript.timer = timerScript.initialTimer;
+        /*
+        if (timerScript.timer <= 0)
+        {
+            MakeItDie();
+            timerScript.timer = 0;
+        }
+        */
         var targetPosition = transform.position + direction;
-        if (targetPosition.x < leftMoveLimit || targetPosition.x > rightMoveLimit || targetPosition.z < backMoveLimit || Obstacle.Position.Contains(targetPosition)) 
+
+        if (targetPosition.x < leftMoveLimit || 
+            targetPosition.x > rightMoveLimit || 
+            targetPosition.z < backMoveLimit || 
+            Obstacle.Position.Contains(targetPosition)) 
         {
             targetPosition = transform.position;
         }
@@ -79,13 +99,18 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (isDead == true)
+        if (isMovable == false)
         {
             return; // Player tidak bisa bergerak, sebelum ada trigger
         }
+        MakeItDie();
+    }
+
+    void MakeItDie()
+    {
         BroadcastPositionOnDeadSituation();
-        transform.DOScale(new Vector3(1, 0.1f,2f), 0.2f); // Player Gepeng
-        isDead = true;
+        transform.DOScale(new Vector3(1, 0.1f, 2f), 0.2f); // Player Gepeng
+        isMovable = false;
     }
 
     private void BroadcastPositionOnJumpEnd()

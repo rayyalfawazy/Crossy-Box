@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Road : Terrain
 {
-    [SerializeField] Jeep jeepPrefab;
+    [SerializeField] List<Vehicle> vehiclePrefabList;
     [SerializeField] float minVehicleSpawnInterval;
     [SerializeField] float maxVehicleSpawnInterval;
 
@@ -30,10 +30,18 @@ public class Road : Terrain
         if (timer <= 0) 
         {
             timer = Random.Range(minVehicleSpawnInterval, maxVehicleSpawnInterval);
-            var vehicle = Instantiate(jeepPrefab, vehicleSpawnPosition, vehicleRotation);
-            vehicle.SetUpDistanceLimit(horizontalSize + 6);
+            SpawnRandomVehicle();
             return;
         }
         timer -= Time.deltaTime;
+    }
+
+    public void SpawnRandomVehicle()
+    {
+        var randomIndex = Random.Range(0, vehiclePrefabList.Count);
+        var prefab = vehiclePrefabList[randomIndex];
+
+        var vehicle = Instantiate(prefab, vehicleSpawnPosition, vehicleRotation);
+        vehicle.SetUpDistanceLimit(horizontalSize + 6);
     }
 }

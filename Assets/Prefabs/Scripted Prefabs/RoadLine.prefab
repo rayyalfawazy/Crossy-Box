@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 758079420374903830, guid: 26d07104bc50a3546a1f5c1adff1d7b6, type: 3}
-  jeepPrefab: {fileID: 1713076164786763594, guid: 51db150e5d3f0d6459034f68d35f63b1, type: 3}
+  vehiclePrefabList:
+  - {fileID: 2454338708516741786, guid: 43afa0f6a2265ab409148437ae4dac39, type: 3}
+  - {fileID: 1713076164786763594, guid: 51db150e5d3f0d6459034f68d35f63b1, type: 3}
   minVehicleSpawnInterval: 1
   maxVehicleSpawnInterval: 3
